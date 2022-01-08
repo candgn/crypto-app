@@ -38,7 +38,7 @@ const News = ({ simplified }) => {
             }
           >
             <Option value="Cryptocurrency">Cryptocurrency</Option>
-            {cryptoCurrencies?.data?.coins.map((coin)=><Option value={coin.name}>{coin.name}</Option>)}
+            {cryptoCurrencies?.data?.coins.map((coin)=><Option key={coin.name} value={coin.name}>{coin.name}</Option>)}
           </Select>
         </Col>
       )}
