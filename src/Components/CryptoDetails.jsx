@@ -15,18 +15,32 @@ import {
   ThunderboltOutlined,
 } from "@ant-design/icons";
 
-import { useGetCryptoDetailsQuery } from "../Services/cryptoApi";
+import LineChart from "./LineChart";
+
+import {
+  useGetCryptoDetailsQuery,
+  useGetCryptoHistoryQuery,
+} from "../Services/cryptoApi";
 
 const { Title, Text } = Typography;
 const { Option } = Select;
 
 const CryptoDetails = () => {
   const { coinId } = useParams();
-  const [timePeriod, setTimePeriod] = useState("7d");
+  const [timePeriod, setTimePeriod] = useState("24h");
   const { data, isFetching } = useGetCryptoDetailsQuery(coinId);
+  const { data: coinHistory } = useGetCryptoHistoryQuery({
+    coinId,
+    timePeriod,
+  });
   const cryptoDetails = data?.data?.coin;
 
-  console.log(data);
+  React.useEffect(() => {
+    console.log(timePeriod);
+  }, [timePeriod]);
+
+  console.log(coinHistory?.data);
+  if (isFetching) return "Loading...";
 
   const time = ["3h", "24h", "7d", "30d", "1y", "3m", "3y", "5y"];
 
@@ -98,8 +112,6 @@ const CryptoDetails = () => {
     },
   ];
 
-  if (isFetching) return "Loading...";
-
   return (
     <Col className="coin-detail-container">
       <Col className="coin-heading-container">
@@ -112,16 +124,22 @@ const CryptoDetails = () => {
         </p>
       </Col>
       <Select
-        defaultValue={"7d"}
+        defaultValue={"24h"}
         className="select-timeperiod"
         placeholder="Select Time Period"
         onChange={(value) => setTimePeriod(value)}
       >
         {time.map((date) => (
-          <Option key={date}>{date}</Option>
+          <Option key={date} value={date}>
+            {date}
+          </Option>
         ))}
       </Select>
-      {/* line chart... */}
+      <LineChart
+        coinHistory={coinHistory}
+        currentPrice={millify(cryptoDetails.price)}
+        coinName={cryptoDetails.name}
+      />
       <Col className="stats-container">
         <Col className="coin-value-statistics">
           <Col className="coin-value-statistics-heading">
@@ -173,7 +191,9 @@ const CryptoDetails = () => {
           </Title>
           {cryptoDetails.links.map((link) => (
             <Row className="coin-link" key={link.name}>
-              <Title level={5} className="link-name">{link.type}</Title>
+              <Title level={5} className="link-name">
+                {link.type}
+              </Title>
               <a href={link.url} target="_blank">
                 {link.name}
               </a>
