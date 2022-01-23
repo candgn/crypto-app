@@ -176,6 +176,7 @@ const CryptoDetails = () => {
           ))}
         </Col>
       </Col>
+      
 
       <Col className="coin-desc-link">
         <Row className="coin-desc">

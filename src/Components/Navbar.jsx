@@ -36,9 +36,13 @@ const Navbar = () => {
         <Avatar src={icon} size="large" />
         <Typography.Title level={2} className="logo">
           <Link to="/">Cryptowelt</Link>
-        </Typography.Title>Acti
-        <Button className="menu-control-container" onClick={()=>setActiveMenu(!activeMenu)}>
-          <MenuOutlined/>
+        </Typography.Title>
+        Acti
+        <Button
+          className="menu-control-container"
+          onClick={() => setActiveMenu(!activeMenu)}
+        >
+          <MenuOutlined />
         </Button>
       </div>
       {activeMenu && (
@@ -50,7 +54,7 @@ const Navbar = () => {
             <Link to="/cryptocurrencies">Cryptocurrencies</Link>
           </Menu.Item>
           <Menu.Item key="3" icon={<HomeOutlined />}>
-            <Link to="/exchanges">Exchanges</Link>
+            <Link to="/exchanges">Markets</Link>
           </Menu.Item>
           <Menu.Item key="4" icon={<HomeOutlined />}>
             <Link to="/news">News</Link>
