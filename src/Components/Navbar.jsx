@@ -54,7 +54,7 @@ const Navbar = () => {
             <Link to="/cryptocurrencies">Cryptocurrencies</Link>
           </Menu.Item>
           <Menu.Item key="3" icon={<HomeOutlined />}>
-            <Link to="/exchanges">Markets</Link>
+            <Link to="/markets">Markets</Link>
           </Menu.Item>
           <Menu.Item key="4" icon={<HomeOutlined />}>
             <Link to="/news">News</Link>
